@@ -5,10 +5,28 @@
   "title_fa": "بهینه‌سازی و کش",
   "version": "0.1.0",
   "namespace": "Tavaan\\Engine\\Optimizer\\",
-  "autoload": {"psr-4": {"Tavaan\\Engine\\Optimizer\\": "src/"}},
-  "providers": ["Tavaan\\Engine\\Optimizer\\OptimizerServiceProvider"],
-  "requires": {"php": ">=8.2", "engines": ["config", "console"]},
+  "autoload": {
+    "psr-4": {
+      "Tavaan\\Engine\\Optimizer\\": "src/"
+    }
+  },
+  "providers": [
+    "Tavaan\\Engine\\Optimizer\\OptimizerServiceProvider"
+  ],
+  "requires": {
+    "php": ">=8.2",
+    "engines": [
+      "config",
+      "console"
+    ]
+  },
   "tables": [],
-  "commands": ["optimize", "optimize:clear", "config:cache", "config:clear", "autoload:cache"],
+  "commands": [
+    "optimize",
+    "optimize:clear",
+    "config:cache",
+    "config:clear",
+    "autoload:cache"
+  ],
   "docs": "docs/03-engines/optimizer.md"
 }

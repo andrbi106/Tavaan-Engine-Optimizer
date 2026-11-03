@@ -5,41 +5,48 @@ declare(strict_types=1);
 namespace Tavaan\Engine\Optimizer;
 
 use Tavaan\Core\Contracts\Container\ContainerInterface;
+use Tavaan\Core\Contracts\Config\RepositoryInterface as ConfigRepository;
+use Tavaan\Engine\Optimizer\Contracts\OptimizerInterface;
 use Tavaan\Core\Provider\ServiceProvider;
 
 /**
- * تَوان | Tavaan — Optimizer
- * OptimizerServiceProvider — ثبت Optimizer با cacherهای فعال (config/autoload).
- *
- * Cacherهای route/view/event/container در فازهای بعد (M2+) افزوده می‌شوند.
- *
- * @api 1.0
- * @see docs/03-engines/optimizer.md
+ * OptimizerServiceProvider — ثبت سرویس‌های موتور Optimizer.
  */
 final class OptimizerServiceProvider extends ServiceProvider
 {
+    /**
+     * {@inheritdoc}
+     */
     public function register(): void
     {
-        $this->app->singleton(Optimizer::class, static function (ContainerInterface $c): Optimizer {
-            $base = \defined('TVN_BASE_PATH') ? (string) \TVN_BASE_PATH : \dirname(__DIR__, 3);
-
-            $optimizer = new Optimizer();
-
-            $optimizer->register('config', new ConfigCacher(
-                $c->make(\Tavaan\Core\Contracts\Config\ConfigCacheInterface::class),
-                (string) ($c->bound('config') ? $c->make('config')->get('config.cache.file', $base . '/storage/cache/config.php') : $base . '/storage/cache/config.php'),
-            ));
-
-            $optimizer->register('autoload', new AutoloadCacher($base . '/storage/cache/classmap.php'));
-
-            return $optimizer;
+        $this->app->singleton(OptimizerInterface::class, function (ContainerInterface $app) {
+            /** @var ConfigRepository $config */
+            $config = $app->get(ConfigRepository::class);
+            return new Optimizer($config);
         });
-        $this->app->alias(Optimizer::class, 'optimizer');
     }
 
-    /** @return list<string> */
+    /**
+     * {@inheritdoc}
+     */
+    public function boot(): void
+    {
+        // ثبت commandها
+        $this->commands[] = \Tavaan\Engine\Optimizer\Console\OptimizeCommand::class;
+        $this->commands[] = \Tavaan\Engine\Optimizer\Console\Optimize_clearCommand::class;
+        $this->commands[] = \Tavaan\Engine\Optimizer\Console\Config_cacheCommand::class;
+        $this->commands[] = \Tavaan\Engine\Optimizer\Console\Config_clearCommand::class;
+        $this->commands[] = \Tavaan\Engine\Optimizer\Console\Autoload_cacheCommand::class;
+
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function provides(): array
     {
-        return [Optimizer::class, 'optimizer'];
+        return [
+            OptimizerInterface::class,
+        ];
     }
 }

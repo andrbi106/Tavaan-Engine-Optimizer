@@ -4,78 +4,56 @@ declare(strict_types=1);
 
 namespace Tavaan\Engine\Optimizer;
 
+use Tavaan\Core\Contracts\Config\RepositoryInterface as Config;
+
 /**
- * تَوان | Tavaan — Optimizer
- * Optimizer — اجرای گروهی cacherها (tvn optimize / optimize:clear).
+ * Optimizer — پیاده‌سازی اصلی موتور.
  *
- * @api 1.0
- * @see docs/03-engines/optimizer.md
+ * @see \Tavaan\Engine\Optimizer\Contracts\OptimizerInterface
  */
-final class Optimizer
+final class Optimizer implements Contracts\OptimizerInterface
 {
-    /** @var array<string, Cacher> */
-    private array $cachers = [];
-
-    /** @param array<string, Cacher> $cachers */
-    public function __construct(array $cachers = [])
-    {
-        $this->cachers = $cachers;
+    /**
+     * @param Config $config پیکربندی موتور
+     */
+    public function __construct(
+        private readonly Config $config,
+    ) {
     }
 
-    public function register(string $name, Cacher $cacher): void
+    /**
+     * {@inheritdoc}
+     */
+    public function optimize(/* ... */): mixed
     {
-        $this->cachers[$name] = $cacher;
+        // TODO: پیاده‌سازی optimize مطابق مستندات (سند §3 API).
+        return null;
     }
 
-    /** @return list<string> */
-    public function names(): array
+    /**
+     * {@inheritdoc}
+     */
+    public function clear(/* ... */): mixed
     {
-        return \array_keys($this->cachers);
+        // TODO: پیاده‌سازی clear مطابق مستندات (سند §3 API).
+        return null;
     }
 
-    public function optimize(): OptimizerResult
+    /**
+     * {@inheritdoc}
+     */
+    public function cache(/* ... */): mixed
     {
-        $timings = [];
-        foreach ($this->cachers as $name => $cacher) {
-            $start = \microtime(true);
-            $cacher->cache();
-            $timings[$name] = (\microtime(true) - $start) * 1000;
-        }
-
-        return new OptimizerResult($timings);
+        // TODO: پیاده‌سازی cache مطابق مستندات (سند §3 API).
+        return null;
     }
 
-    public function cache(string $name): void
+    /**
+     * {@inheritdoc}
+     */
+    public function isFresh(/* ... */): mixed
     {
-        $this->cachers[$name]->cache();
-    }
-
-    public function clear(?string $name = null): void
-    {
-        if ($name !== null) {
-            $this->cachers[$name]->clear();
-
-            return;
-        }
-
-        foreach ($this->cachers as $cacher) {
-            $cacher->clear();
-        }
-    }
-
-    public function isFresh(string $name): bool
-    {
-        return $this->cachers[$name]->isFresh();
-    }
-
-    /** @return array<string, bool> */
-    public function freshness(): array
-    {
-        $out = [];
-        foreach ($this->cachers as $name => $cacher) {
-            $out[$name] = $cacher->isFresh();
-        }
-
-        return $out;
+        // TODO: پیاده‌سازی isFresh مطابق مستندات (سند §3 API).
+        return null;
     }
 }
