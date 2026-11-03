@@ -36,7 +36,8 @@ final class OptimizerResult
             $lines[] = \sprintf('  %s: %.2f ms', $name, $ms);
         }
         $lines[] = \sprintf('  Total: %.2f ms', $this->totalMs);
-        return \implode("\n", $lines);
+        return \implode("
+", $lines);
     }
 }
 
@@ -92,7 +93,11 @@ final class ConfigCacher extends FileCacher
 
     public function cache(): bool
     {
-        $content = "<?php\n\n// Cached by Tavaan Optimizer\nreturn " . \var_export($this->config, true) . ";\n";
+        $content = "<?php
+
+// Cached by Tavaan Optimizer
+return " . \var_export($this->config, true) . ";
+";
         return $this->writeCache($content);
     }
 }
@@ -111,7 +116,11 @@ final class RouteCacher extends FileCacher
 
     public function cache(): bool
     {
-        $content = "<?php\n\n// Cached routes\nreturn " . \var_export($this->routes, true) . ";\n";
+        $content = "<?php
+
+// Cached routes
+return " . \var_export($this->routes, true) . ";
+";
         return $this->writeCache($content);
     }
 }
@@ -131,7 +140,11 @@ final class ViewCacher extends FileCacher
 
     public function cache(): bool
     {
-        $content = "<?php\n\n// Compiled views\nreturn " . \var_export($this->compiledViews, true) . ";\n";
+        $content = "<?php
+
+// Compiled views
+return " . \var_export($this->compiledViews, true) . ";
+";
         return $this->writeCache($content);
     }
 }
@@ -150,7 +163,11 @@ final class AutoloadCacher extends FileCacher
 
     public function cache(): bool
     {
-        $content = "<?php\n\n// Class map\nreturn " . \var_export($this->classMap, true) . ";\n";
+        $content = "<?php
+
+// Class map
+return " . \var_export($this->classMap, true) . ";
+";
         return $this->writeCache($content);
     }
 }
@@ -169,7 +186,11 @@ final class EventCacher extends FileCacher
 
     public function cache(): bool
     {
-        $content = "<?php\n\n// Event map\nreturn " . \var_export($this->events, true) . ";\n";
+        $content = "<?php
+
+// Event map
+return " . \var_export($this->events, true) . ";
+";
         return $this->writeCache($content);
     }
 }
