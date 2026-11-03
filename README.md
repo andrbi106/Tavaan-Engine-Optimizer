@@ -1,52 +1,62 @@
-# Optimizer
+# Tavaan Engine — Optimizer
 
-> بهینه‌سازی و کش زمان اجرا: Config, Routes, Views, Autoload, Events.
+> **بهینه‌سازی** — موتور Optimizer در فریمورک تَوان
+
+## مشخصات
 
 | فیلد | مقدار |
-|------|------|
-| Engine ID | `tavaan.engine.optimizer` |
-| DOC-ID | `DOC-037` |
-| Namespace | `Tavaan\Engine\Optimizer` |
-| اولویت | P1 (فاز M1) |
-| مخزن | https://github.com/andrbi106/Tavaan-Engine-Optimizer |
-| مستندات | https://github.com/Derogaramin/Tavaan-Doc/blob/main/docs/03-engines/optimizer.md
+|---|---|
+| شناسه | `tavaan.engine.optimizer` |
+| نام | `Optimizer` |
+| عنوان فارسی | بهینه‌سازی |
+| نسخه | `0.1.0` |
+| namespace | `Tavaan\Engine\Optimizer` |
+| نوع | `engine` |
 
-## استفاده
+## کلاس‌های اصلی
 
-```php
-use Tavaan\Engine\Optimizer\Optimizer;
+- `src/Optimizer.php`
+- `src/OptimizerResult.php`
 
-$opt = new Optimizer([
-    'cache_dir' => 'storage/framework/cache',
-    'config_data' => $configArray,
-    'routes_data' => $routesArray,
-    'classmap_data' => $classMap,
-]);
+## Service Providerها
 
-// کش همه‌ی cacherها
-$result = $opt->optimize();
-echo $result->summary();
-// config: 1.50 ms
-// routes: 0.30 ms
-// views: 0.10 ms
-// autoload: 5.20 ms
-// events: 0.20 ms
-// Total: 7.30 ms
+- `Tavaan\Engine\Optimizer\OptimizerServiceProvider`
 
-// بررسی وضعیت
-$opt->isCached('config');  // true
-$opt->isCached('routes');  // true
+## وابستگی‌ها
 
-// پاک کردن همه
-$opt->clear();
+**موتورهای مورد‌نیاز:**
 
-// پاک کردن یکی
-$opt->clearOne('config');
+- `config`
+- `console`
+
+## دستورات CLI
+
+- `optimize`
+- `optimize:clear`
+
+## پیکربندی
+
+- فایل پیکربندی: `config/optimizer.php`
+- کلید: `optimizer`
+
+## نصب
+
+```bash
+git clone https://github.com/andrbi106/Tavaan-Engine-Optimizer.git
 ```
 
-## مستندات
+این موتور بخشی از فریمورک تَوان است و معمولاً به‌صورت مستقیم نصب نمی‌شود،
+بلکه توسط [Tavaan-Core](https://github.com/andrbi106/Tavaan-Core) مدیریت می‌شود.
 
-[docs/03-engines/optimizer.md](https://github.com/Derogaramin/Tavaan-Doc/blob/main/docs/03-engines/optimizer.md)
+## روابط با سایر مخازن
 
----
-*Generated on 2026-11-03.*
+| مخزن | نقش |
+|---|---|
+| **`andrbi106/Tavaan-Engine-Optimizer`** (این مخزن) | موتور Optimizer |
+| `andrbi106/Tavaan-Engine-Core` | ساختار پایه + درگاه ارتباط موتورها |
+| `andrbi106/Tavaan-Core` | اسکلت اپلیکیشن + همهٔ موتورها |
+| `Derogaramin/Tavaan-Framework` | فریمورک مادر (monorepo) |
+
+## مجوز
+
+MIT — هم‌راستا با فریمورک مادر تَوان.
