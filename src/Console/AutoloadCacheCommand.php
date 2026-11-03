@@ -9,7 +9,7 @@ use Tavaan\Core\Contracts\Console\CommandInterface;
 /**
  * autoload:cache command.
  */
-final class Autoload_cacheCommand implements CommandInterface
+final class AutoloadCacheCommand implements CommandInterface
 {
     public function name(): string
     {

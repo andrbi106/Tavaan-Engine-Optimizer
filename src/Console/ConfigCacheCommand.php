@@ -9,7 +9,7 @@ use Tavaan\Core\Contracts\Console\CommandInterface;
 /**
  * config:cache command.
  */
-final class Config_cacheCommand implements CommandInterface
+final class ConfigCacheCommand implements CommandInterface
 {
     public function name(): string
     {

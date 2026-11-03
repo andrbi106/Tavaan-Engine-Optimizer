@@ -7,18 +7,18 @@ namespace Tavaan\Engine\Optimizer\Console;
 use Tavaan\Core\Contracts\Console\CommandInterface;
 
 /**
- * optimize:clear command.
+ * config:clear command.
  */
-final class Optimize_clearCommand implements CommandInterface
+final class ConfigClearCommand implements CommandInterface
 {
     public function name(): string
     {
-        return 'optimize:clear';
+        return 'config:clear';
     }
 
     public function description(): string
     {
-        return 'Run optimize:clear (TODO: fill description).';
+        return 'Run config:clear (TODO: fill description).';
     }
 
     public function handle(array $args = []): int
