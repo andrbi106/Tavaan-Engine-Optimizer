@@ -2,7 +2,7 @@
   "id": "tavaan.engine.optimizer",
   "type": "engine",
   "name": "Optimizer",
-  "title_fa": "بهینه‌سازی و کش",
+  "title_fa": "بهینه‌سازی",
   "version": "0.1.0",
   "namespace": "Tavaan\\Engine\\Optimizer\\",
   "autoload": {
@@ -10,23 +10,10 @@
       "Tavaan\\Engine\\Optimizer\\": "src/"
     }
   },
-  "providers": [
-    "Tavaan\\Engine\\Optimizer\\OptimizerServiceProvider"
-  ],
-  "requires": {
-    "php": ">=8.2",
-    "engines": [
-      "config",
-      "console"
-    ]
-  },
+  "providers": ["Tavaan\\Engine\\Optimizer\\OptimizerServiceProvider"],
+  "requires": {"php": ">=8.2", "engines": ["config", "console"]},
+  "config": {"file": "config/optimizer.php", "key": "optimizer"},
   "tables": [],
-  "commands": [
-    "optimize",
-    "optimize:clear",
-    "config:cache",
-    "config:clear",
-    "autoload:cache"
-  ],
+  "commands": ["optimize", "optimize:clear"],
   "docs": "docs/03-engines/optimizer.md"
 }
