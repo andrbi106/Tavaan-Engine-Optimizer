@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tavaan\Engine\Optimizer\Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use Tavaan\Testing\TestCase;
 use Tavaan\Engine\Optimizer\Optimizer;
 use Tavaan\Engine\Optimizer\OptimizerResult;
 use Tavaan\Engine\Optimizer\OptimizerServiceProvider;
