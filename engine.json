@@ -10,10 +10,25 @@
       "Tavaan\\Engine\\Optimizer\\": "src/"
     }
   },
-  "providers": ["Tavaan\\Engine\\Optimizer\\OptimizerServiceProvider"],
-  "requires": {"php": ">=8.2", "engines": ["config", "console"]},
-  "config": {"file": "config/optimizer.php", "key": "optimizer"},
+  "providers": [
+    "Tavaan\\Engine\\Optimizer\\OptimizerServiceProvider"
+  ],
+  "requires": {
+    "php": ">=8.2",
+    "engines": [
+      "config",
+      "console"
+    ]
+  },
+  "config": {
+    "file": "config/optimizer.php",
+    "key": "optimizer"
+  },
   "tables": [],
-  "commands": ["optimize", "optimize:clear"],
-  "docs": "docs/03-engines/optimizer.md"
+  "commands": [
+    "optimize",
+    "optimize:clear"
+  ],
+  "docs": "docs/03-engines/optimizer.md",
+  "class": "Tavaan\\Engine\\Optimizer\\OptimizerEngine"
 }

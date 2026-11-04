@@ -2,6 +2,8 @@
 
 > **بهینه‌سازی** — موتور Optimizer در فریمورک تَوان
 
+این موتور از کلاس پایهٔ `Engine` (در [Tavaan-Engine-Core](https://github.com/andrbi106/Tavaan-Engine-Core)) ارث می‌برد.
+
 ## مشخصات
 
 | فیلد | مقدار |
@@ -11,51 +13,65 @@
 | عنوان فارسی | بهینه‌سازی |
 | نسخه | `0.1.0` |
 | namespace | `Tavaan\Engine\Optimizer` |
-| نوع | `engine` |
+| کلاس موتور | `Tavaan\Engine\Optimizer\OptimizerEngine` |
+| Facade |  |
 
-## کلاس‌های اصلی
+## کلاس موتور
 
-- `src/Optimizer.php`
-- `src/OptimizerResult.php`
+```php
+namespace Tavaan\Engine\Optimizer;
+
+use Tavaan\EngineCore\Engine as BaseEngine;
+use Tavaan\EngineCore\Contracts\EngineManifestInterface;
+
+final class OptimizerEngine extends BaseEngine
+{
+    public function __construct(EngineManifestInterface $manifest)
+    {
+        parent::__construct($manifest);
+    }
+
+    public function register(ContainerInterface $container): void
+    {
+        parent::register($container);
+        // bindingهای اختصاصی موتور
+    }
+
+    public function boot(): void
+    {
+        parent::boot();
+    }
+}
+```
+
+**فایل:** `src/OptimizerEngine.php`
+
+## وابستگی‌ها
+
+**موتورهای مورد‌نیاز:** `config`, `console`
 
 ## Service Providerها
 
 - `Tavaan\Engine\Optimizer\OptimizerServiceProvider`
-
-## وابستگی‌ها
-
-**موتورهای مورد‌نیاز:**
-
-- `config`
-- `console`
 
 ## دستورات CLI
 
 - `optimize`
 - `optimize:clear`
 
-## پیکربندی
+## سه درگاه ارتباط با سایر موتورها
 
-- فایل پیکربندی: `config/optimizer.php`
-- کلید: `optimizer`
+| درگاه | الگو | متدهای convenience |
+|---|---|---|
+| Container | pull-based DI | `make()`, `bound()` |
+| Events | pub/sub | `dispatch()`, `listen()` |
+| EngineBus | point-to-point RPC | `call()`, `offer()` |
 
 ## نصب
 
 ```bash
 git clone https://github.com/andrbi106/Tavaan-Engine-Optimizer.git
 ```
-
-این موتور بخشی از فریمورک تَوان است و معمولاً به‌صورت مستقیم نصب نمی‌شود،
-بلکه توسط [Tavaan-Core](https://github.com/andrbi106/Tavaan-Core) مدیریت می‌شود.
-
-## روابط با سایر مخازن
-
-| مخزن | نقش |
-|---|---|
-| **`andrbi106/Tavaan-Engine-Optimizer`** (این مخزن) | موتور Optimizer |
-| `andrbi106/Tavaan-Engine-Core` | ساختار پایه + درگاه ارتباط موتورها |
-| `andrbi106/Tavaan-Core` | اسکلت اپلیکیشن + همهٔ موتورها |
-| `Derogaramin/Tavaan-Framework` | فریمورک مادر (monorepo) |
 
 ## مجوز
 
